@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Configuration;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 using MySql.Data.MySqlClient;
 
 
@@ -61,8 +56,8 @@ namespace CoronaDashboard
 
         public void Cases()
         {
-            string connectionStr = ConfigurationManager.ConnectionStrings["coronadataConnectionString"].ConnectionString;
-            MySqlConnection con = new MySqlConnection(connectionStr);
+
+            MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
             con.Open();
             
             MySqlCommand command = con.CreateCommand();
@@ -78,8 +73,7 @@ namespace CoronaDashboard
 
         public void Date()
         {
-            string connectionStr = ConfigurationManager.ConnectionStrings["coronadataConnectionString"].ConnectionString;
-            MySqlConnection con = new MySqlConnection(connectionStr);
+            MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
             con.Open();
 
             MySqlCommand command = con.CreateCommand();
