@@ -11,7 +11,7 @@ namespace CoronaDashboard
 {
 
 
-    public partial class data
+    public partial class Data
     {
 
         /// <summary>

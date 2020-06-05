@@ -8,36 +8,50 @@ using MySql.Data.MySqlClient;
 
 namespace CoronaDashboard
 {
-    public partial class data : Page
+    public partial class Data : Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Cases();
+            GerCases();
+            UsCases();
             Length();
             Date();
         }
 
-        public ArrayList CaseList = new ArrayList();
+        public ArrayList GerCaseList = new ArrayList();
+        public ArrayList UsCaseList = new ArrayList();
         public ArrayList LabelList = new ArrayList();
 
         //Get Array length
         public int Length()
         {
-            int length = CaseList.Count;
+            int length = GerCaseList.Count;
             System.Diagnostics.Debug.WriteLine(length);
             return length;
         }
 
-        // Put SQL Data in String  
+        // Put SQL German Data in String  
         public String DataStringCases()
         {
             String data = "";
-            foreach (var elem in CaseList)
+            foreach (var elem in GerCaseList)
             {
                 
                 data += (String)elem + ", ";
             }
             return data;
+        }
+
+        // Put SQL US Data in String  
+        public String UsDataStringCases()
+        {
+            String usData = "";
+            foreach (var elem in UsCaseList)
+            {
+
+                usData += (String)elem + ", ";
+            }
+            return usData;
         }
         // Put SQL Data Labels in String  
         public String DataStringLabels()
@@ -51,8 +65,8 @@ namespace CoronaDashboard
             return data;
         }
 
-        //SQL Query to get Data points
-        public void Cases()
+        //SQL Query to get German Data points
+        public void GerCases()
         {
 
             MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
@@ -63,11 +77,29 @@ namespace CoronaDashboard
             MySqlDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                CaseList.Add(reader.GetString(0));                
+                GerCaseList.Add(reader.GetString(0));                
             }
             reader.Close();
             
         }
+        //SQL Query to get US Data points
+        public void UsCases()
+        {
+
+            MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
+            con.Open();
+
+            MySqlCommand command = con.CreateCommand();
+            command.CommandText = "select cases from ecdc_data where geoID='US' Order by month, day,year";
+            MySqlDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                UsCaseList.Add(reader.GetString(0));
+            }
+            reader.Close();
+
+        }
+
         //SQL Query to get Data labels
         public void Date()
         {
