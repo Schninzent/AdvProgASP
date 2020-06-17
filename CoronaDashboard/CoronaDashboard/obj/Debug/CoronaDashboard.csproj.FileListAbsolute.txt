@@ -191,8 +191,8 @@ D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\bin\Microsoft.
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\bin\de\System.Web.Optimization.resources.dll
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\bin\de\Microsoft.AspNet.FriendlyUrls.resources.dll
-D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.csprojAssemblyReference.cache
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.csproj.CoreCompileInputs.cache
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.csproj.CopyComplete
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.dll
 D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.pdb
+D:\Dokumente\Dashboard\AdvProgASP\CoronaDashboard\CoronaDashboard\obj\Debug\CoronaDashboard.csprojAssemblyReference.cache

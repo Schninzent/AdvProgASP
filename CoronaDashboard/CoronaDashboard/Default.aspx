@@ -7,7 +7,9 @@
     <%="" %>
            
     <p id="para" runat="server"></p>
+    <asp:Button ID="Button1" runat="server" Text="Button" />
     
+
 <%-- --------------------------------------CHART------------------------------------------------%>
 
     <div class="chart">
@@ -19,10 +21,10 @@
             <script>
                 var ctx = document.getElementById('myChart').getContext('2d');
                 var data = [];
-
+                
                     var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
+                    type: 'line', 
+                    data: { 
                         labels: [<%=DataStringLabels()%>],
                         datasets: [{
                         label: 'Germany', 
@@ -39,7 +41,7 @@
                                     '#d95f02'
                                 ],
                                 borderWidth: 1
-                        }]
+                        }]  
                     },
                     options: {
                     responsive: true,
