@@ -4,35 +4,34 @@
     <script src="Scripts/jquery-3.4.1.js"></script>    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
 
-    <div style="float: left; margin-left: 30px;">
-        <select id="ddl_one">
-            <option value="US">US</option>
-            <option value="DE">DE</option>
-            <option value="UK">UK</option>
-        </select>
-        <select id="ddl_two">
-            <option value="US">US</option>
-            <option value="DE">DE</option>
-            <option value="UK">UK</option>
-        </select>
+    <div style="float: left; margin-left: 30px; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; width: 1280px;">
+        
+        <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="geoID" DataValueField="geoID">
+        </asp:DropDownList>
+        <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="geoID" DataValueField="geoID">
+        </asp:DropDownList>
+
         <select id="ddlOption">
             <option value="cases">cases</option>
             <option value="deaths">deaths</option>
         </select>
         <input id="btn_line_chart" type="button" value="Show" />
+        
+&nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct geoID FROM ecdc_data"></asp:SqlDataSource>
     </div>
     <br />
-    <div>
-        <canvas id="myChart" width="300" height="200"> </canvas>
-    </div>
+
+    <canvas id="myChart" height="100" width="300"> </canvas>
+
     
     
         <script>
         $(document).ready(function() {
             $("#btn_line_chart").on('click', function () {
                 //on click get values from html 
-                var cntryOne = $('#ddl_one').val();
-                var cntryTwo = $('#ddl_two').val();
+                var cntryOne = $('#MainContent_ddl_one').val();
+//                var cntryTwo = $('#ddl_two').val();
+                var cntryTwo = $('#MainContent_ddl_two').val();
                 var opt = $('#ddlOption').val();
 
                 //values to JSON
@@ -52,7 +51,7 @@
                     error: onErrorCall
                 });
 
-                //on success fill Chart data from ajax response
+                //on success fill Chart data with ajax response data
                 function onSuccess(response) {
                     //alert("success function");
                     var aData = response.d; //response.d to get jquery ajax response
@@ -62,14 +61,16 @@
 
 
                     var ctx = document.getElementById('myChart').getContext('2d');
-                    var data = [];
+                    //destroy old chart data
+                    if (window.bar != undefined)
+                        window.bar.destroy();
 
-                    var myChart = new Chart(ctx, {
+                    window.bar = new Chart(ctx, {
                         type: 'line',
                         data: {
                             labels: aLabels,
                             datasets: [{
-                                    label: 'First Dataset',
+                                    label: cntryOne,
                                     data: aDatasets1,
                                     borderColor: [
                                         '#1b9e77'
@@ -77,27 +78,30 @@
                                     borderWidth: 1
                                 },
                                 {
-                                    label: 'Second Dataset',
+                                    label: cntryTwo,
                                     data: aDatasets2,
                                     borderColor: [
                                         '#d95f02'
                                     ],
                                     borderWidth: 1
                                 }]
-                        },
-                        options: {
-                            responsive: true,
-                            maintainAspectRatio: true,
-                            scales: {
-                                yAxes: [{
-                                    ticks: {
-                                        beginAtZero: true
-                                    }
-                                }]
-                            }
                         }
+
+//                        options: {
+//                            responsive: true,
+//                            maintainAspectRatio: true,
+//                            scales: {
+//                                yAxes: [{
+//                                    ticks: {
+//                                        beginAtZero: true
+//                                    }
+//                                }]
+//                            }
+//                        }
                     });
+
                 }
+                
                 function onErrorCall(repo) {
                     alert("Woops something went wrong, pls try later !");
                 }

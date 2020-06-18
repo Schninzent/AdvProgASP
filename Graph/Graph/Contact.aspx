@@ -9,12 +9,7 @@
     <canvas id ="chart" width="400" height="200"></canvas>
     <script>
 
-        var c = <% Count(); %>;
-        var arr = [c];
-        for (var i = 0; i < c; i++) {
-            c[i] = <%Bra%>[i];
-            console.log(c[i]);
-        }
+       
 
         var ctx = document.getElementById('chart').getContext('2d');
         var myChart = new Chart(ctx, {
