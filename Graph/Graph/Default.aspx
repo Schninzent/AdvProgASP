@@ -8,6 +8,7 @@
         
         <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="geoID" DataValueField="geoID">
         </asp:DropDownList>
+
         <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="geoID" DataValueField="geoID">
         </asp:DropDownList>
 
@@ -30,7 +31,6 @@
             $("#btn_line_chart").on('click', function () {
                 //on click get values from html 
                 var cntryOne = $('#MainContent_ddl_one').val();
-//                var cntryTwo = $('#ddl_two').val();
                 var cntryTwo = $('#MainContent_ddl_two').val();
                 var opt = $('#ddlOption').val();
 

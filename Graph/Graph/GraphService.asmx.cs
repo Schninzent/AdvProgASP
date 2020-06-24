@@ -23,19 +23,18 @@ namespace Graph
 
         [WebMethod]
 
-
         public ArrayList getLineChartData(string countryOne, string countryTwo, string option)
         {
             System.Diagnostics.Debug.WriteLine("test");
 
             // List<object> iData = new List<object>();
-            ArrayList iData = new ArrayList();
             // List<string> labels = new List<string>();
+            ArrayList iData = new ArrayList();
             ArrayList labels = new ArrayList();
 
             //get labels
             string query1 = "select concat(day ,'.' , month ) as date from ecdc_data where geoID='DE' Order by month, day,year";
-            DataTable dtLabels = CommonFuntionGetData(query1);
+            DataTable dtLabels = GetData(query1);
             foreach (DataRow drow in dtLabels.Rows)
             {
                 labels.Add(drow["date"].ToString());
@@ -45,7 +44,7 @@ namespace Graph
             //get first data set
             string queryDataSet1 = String.Format("select {0} as 'quantity' from ecdc_data where geoID='{1}' Order by month, day,year", option, countryOne);
 
-            DataTable dtDataItemsSets1 = CommonFuntionGetData(queryDataSet1);
+            DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
             // List<string> lstdataItem1 = new List<string>();
@@ -60,7 +59,7 @@ namespace Graph
             //get second data set
             string queryDataSet2 = String.Format("select {0} as 'quantity' from ecdc_data where geoID='{1}' Order by month, day,year", option, countryTwo);
 
-            DataTable dtDataItemsSets2 = CommonFuntionGetData(queryDataSet2);
+            DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
             // List<string> lstdataItem2 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets2.Rows)
@@ -73,12 +72,12 @@ namespace Graph
             return iData;
         }
         //method to fill a dataset according to a query string
-        public DataTable CommonFuntionGetData(string strQuery)
+        public DataTable GetData(string strQuery)
         {
-            MySqlDataAdapter adap = new MySqlDataAdapter(strQuery, con);
-            DataSet ds = new DataSet();
-            adap.Fill(ds);
-            return ds.Tables[0];
+            MySqlDataAdapter adapter = new MySqlDataAdapter(strQuery, con);
+            DataSet dataSet = new DataSet();
+            adapter.Fill(dataSet);
+            return dataSet.Tables[0];
         }
     }
 }
