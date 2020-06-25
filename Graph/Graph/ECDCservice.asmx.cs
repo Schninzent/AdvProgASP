@@ -7,30 +7,21 @@ using System.Web.Services;
 namespace Graph
 {
     /// <summary>
-    /// Zusammenfassungsbeschreibung für WebService1
+    /// Zusammenfassungsbeschreibung für ECDCservice
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // Wenn der Aufruf dieses Webdiensts aus einem Skript zulässig sein soll, heben Sie mithilfe von ASP.NET AJAX die Kommentarmarkierung für die folgende Zeile auf.
     [System.Web.Script.Services.ScriptService]
-    public class GraphService : System.Web.Services.WebService
+    public class ECDCservice : System.Web.Services.WebService
     {
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList getLineChartData(string countryOne, string countryTwo, string option, string source)
+        public ArrayList GetEcdcData(string countryOne, string countryTwo, string option)
         {
             System.Diagnostics.Debug.WriteLine("test");
-            string column;
-            if (source == "ecdc_data")
-            {
-                column = "countriesAndTerritories";
-            }
-            else
-            {
-                column = "country";
-            }
 
             // List<object> iData = new List<object>();
             // List<string> labels = new List<string>();
@@ -47,9 +38,10 @@ namespace Graph
             iData.Add(labels);
 
             //get first data set
-            string queryDataSet1 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option, source, column, countryOne);
+            string queryDataSet1 = String.Format("select {0} as 'quantity' from ecdc_data where countriesAndTerritories='{1}' Order by month, day,year", option, countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
+            System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
             // List<string> lstdataItem1 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets1.Rows)
@@ -60,7 +52,7 @@ namespace Graph
             iData.Add(lstdataItem1);
 
             //get second data set
-            string queryDataSet2 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option, source, column, countryTwo);
+            string queryDataSet2 = String.Format("select {0} as 'quantity' from ecdc_data where countriesAndTerritories='{1}' Order by month, day,year", option, countryTwo);
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();

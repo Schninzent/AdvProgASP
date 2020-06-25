@@ -29,13 +29,13 @@ namespace Graph
             ArrayList labels = new ArrayList();
 
             //get labels
-            // string query1 = "select concat(day ,'.' , month ) as date from hopkins_data where geoID='DE' Order by month, day,year";
-            // DataTable dtLabels = GetData(query1);
-            // foreach (DataRow drow in dtLabels.Rows)
-            // {
-            //     labels.Add(drow["date"].ToString());
-            // }
-            // iData.Add(labels);
+            string query1 = "select concat(day ,'.' , month ) as date from hopkins_data where country='Germany' Order by month, day,year";
+            DataTable dtLabels = GetData(query1);
+            foreach (DataRow drow in dtLabels.Rows)
+            {
+                labels.Add(drow["date"].ToString());
+            }
+            iData.Add(labels);
 
             //get first data set
             string queryDataSet1 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryOne);
