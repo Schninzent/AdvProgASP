@@ -26,23 +26,23 @@
             <option value="ecdc_data">ECDC</option>
             <option value="hopkins_data">JHU</option>
         </select>
-        <input id="btn_line_chart" type="button" value="Show"/>
+        <input id="btn_line_chart" type="button" value="Show" />
+        <input id="btn_line_chart2" type="button" value="Show" />
 
         &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
 "></asp:SqlDataSource>
     </div>
-    <br/>
+    <br />
 
-    <div>
+    <script src="Scripts/DrawChart.js"></script>
+    <script src="Scripts/DrawSecondChart.js"></script>
+
+    <div id="ecdc">
         <canvas id="myChart" height="100" width="300"></canvas>
     </div>
-    <div >
+    <div id="jhu">
         <canvas id="myChart2" height="100" width="300"></canvas>
     </div>
-    
-    
-    <script src="Scripts/DrawChart.js"></script>
 
-
-
+    <%-- <script src="Scripts/TwoCharts.js"></script> --%>
 </asp:Content>

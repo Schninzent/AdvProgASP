@@ -21,6 +21,11 @@ namespace Graph
         [WebMethod]
         public ArrayList getJHUData(string countryOne, string countryTwo, string option)
         {
+            if (option == "cases")
+            {
+                option = "newCases";
+            }
+
             System.Diagnostics.Debug.WriteLine("test");
 
             // List<object> iData = new List<object>();
