@@ -23,7 +23,6 @@ namespace Graph
         [WebMethod]
         public ArrayList getLineChartData(string countryOne, string countryTwo, string option, string source)
         {
-            System.Diagnostics.Debug.WriteLine("test");
             string column;
             if (source == "ecdc_data")
             {
@@ -52,7 +51,6 @@ namespace Graph
             string queryDataSet1 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option,source , column, countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
-            System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
             // List<string> lstdataItem1 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets1.Rows)

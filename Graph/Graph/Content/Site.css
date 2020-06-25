@@ -11,6 +11,11 @@ body {
     padding-right: 15px;
 }
 
+h2.choose {
+    text-align: center;
+    width: 100%;
+}
+
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
