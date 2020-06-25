@@ -1,38 +1,27 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
-
-//using System.Collections.Generic;
 using System.Data;
 using System.Web.Services;
 
 namespace Graph
 {
     /// <summary>
-    /// Zusammenfassungsbeschreibung für WebService1
+    /// Zusammenfassungsbeschreibung für JHUservice
     /// </summary>
     [WebService(Namespace = "http://tempuri.org/")]
     [WebServiceBinding(ConformsTo = WsiProfiles.BasicProfile1_1)]
     [System.ComponentModel.ToolboxItem(false)]
     // Wenn der Aufruf dieses Webdiensts aus einem Skript zulässig sein soll, heben Sie mithilfe von ASP.NET AJAX die Kommentarmarkierung für die folgende Zeile auf.
     [System.Web.Script.Services.ScriptService]
-    public class GraphService : System.Web.Services.WebService
+    public class JHUservice : System.Web.Services.WebService
     {
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList getLineChartData(string countryOne, string countryTwo, string option, string source)
+        public ArrayList getJHUData(string countryOne, string countryTwo, string option)
         {
             System.Diagnostics.Debug.WriteLine("test");
-            string column;
-            if (source == "ecdc_data")
-            {
-                column = "countriesAndTerritories";
-            }
-            else
-            {
-                column = "country";
-            }
 
             // List<object> iData = new List<object>();
             // List<string> labels = new List<string>();
@@ -40,16 +29,16 @@ namespace Graph
             ArrayList labels = new ArrayList();
 
             //get labels
-            string query1 = "select concat(day ,'.' , month ) as date from ecdc_data where geoID='DE' Order by month, day,year";
-            DataTable dtLabels = GetData(query1);
-            foreach (DataRow drow in dtLabels.Rows)
-            {
-                labels.Add(drow["date"].ToString());
-            }
-            iData.Add(labels);
+            // string query1 = "select concat(day ,'.' , month ) as date from hopkins_data where geoID='DE' Order by month, day,year";
+            // DataTable dtLabels = GetData(query1);
+            // foreach (DataRow drow in dtLabels.Rows)
+            // {
+            //     labels.Add(drow["date"].ToString());
+            // }
+            // iData.Add(labels);
 
             //get first data set
-            string queryDataSet1 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option,source , column, countryOne);
+            string queryDataSet1 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
@@ -63,7 +52,7 @@ namespace Graph
             iData.Add(lstdataItem1);
 
             //get second data set
-            string queryDataSet2 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option,source, column, countryTwo);
+            string queryDataSet2 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryTwo);
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
