@@ -47,12 +47,12 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">Anwendungsname</a>
+                    <a class="navbar-brand" runat="server" href="~/">Corona+ </a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
                         <li><a runat="server" href="~/">Startseite</a></li>
-                        <li><a runat="server" href="~/Contact.aspx">Kontakt</a></li>
+                        <li><a runat="server" href="~/Contact.aspx">Example</a></li>
                         
                     </ul>
                 </div>
@@ -62,9 +62,9 @@
             <asp:ContentPlaceHolder ID="MainContent" runat="server">
             </asp:ContentPlaceHolder>
             <hr />
-            <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - Meine ASP.NET-Anwendung</p>
-            </footer>
+            <%-- <footer> --%>
+            <%--     <p>&copy; <%: DateTime.Now.Year %> - Meine ASP.NET-Anwendung</p> --%>
+            <%-- </footer> --%>
         </div>
 
     </form>

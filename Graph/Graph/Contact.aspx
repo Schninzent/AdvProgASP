@@ -1,53 +1,54 @@
 ﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="Graph.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-    <h2><%: Title %>.</h2>
-    
+
+    <script src="Scripts/jquery-3.4.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+
+    <div style="float: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; margin-left: 30px; width: 1280px;">
+
+        <%-- <input type="checkbox" id="ECDC" name="ECDC" value="ecdc_data"> --%>
+        <%-- <label for="ECDC">ECDC</label><br> --%>
+        <%-- <input type="checkbox" id="JHU" name="JHU" value="hopkins_data"> --%>
+        <%-- <label for="JHU">JHU</label><br> --%>
+
+        <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+        </asp:DropDownList>
+
+        <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+        </asp:DropDownList>
+
+        <select id="ddlOption">
+            <option value="cases">Cases</option>
+            <option value="deaths">Deaths</option>
+        </select>
+
+        <%-- <select id="ddl_Source"> --%>
+        <%--     <option value="ecdc_data">ECDC</option> --%>
+        <%--     <option value="hopkins_data">JHU</option> --%>
+        <%-- </select> --%>
+        <input id="btn_line_chart" type="button" value="Show"/>
+        <%-- <input id="btn_line_chart2" type="button" value="Show"/> --%>
+
+        &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
+"></asp:SqlDataSource>
+    </div>
+    <br/>
+
+    <%-- <script src="Scripts/DrawChart.js"></script> --%>
+    <%-- <script src="Scripts/DrawSecondChart.js"></script> --%>
+
+    <div id="ecdc">
+        <canvas id="myChart" height="100" width="300"></canvas>
+    </div>
+    <div id="jhu">
+        <canvas id="myChart2" height="100" width="300"></canvas>
+    </div>
+
+    <script src="Scripts/TwoCharts.js"></script>
 
 
-    <canvas id ="chart" width="400" height="200"></canvas>
-    <script>
 
-       
 
-        var ctx = document.getElementById('chart').getContext('2d');
-        var myChart = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-                datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.2)',
-                        'rgba(54, 162, 235, 0.2)',
-                        'rgba(255, 206, 86, 0.2)',
-                        'rgba(75, 192, 192, 0.2)',
-                        'rgba(153, 102, 255, 0.2)',
-                        'rgba(255, 159, 64, 0.2)'
-                    ],
-                    borderColor: [
-                        'rgba(255, 99, 132, 1)',
-                        'rgba(54, 162, 235, 1)',
-                        'rgba(255, 206, 86, 1)',
-                        'rgba(75, 192, 192, 1)',
-                        'rgba(153, 102, 255, 1)',
-                        'rgba(255, 159, 64, 1)'
-                    ],
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                scales: {
-                    yAxes: [{
-                        ticks: {
-                            beginAtZero: true
-                        }
-                    }]
-                }
-            }
-        });
-    </script>
-    
+
 </asp:Content>

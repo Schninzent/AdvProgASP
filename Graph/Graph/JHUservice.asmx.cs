@@ -25,6 +25,10 @@ namespace Graph
             {
                 option = "newCases";
             }
+            else
+            {
+                option = "newDeaths";
+            }
 
             System.Diagnostics.Debug.WriteLine("test");
 

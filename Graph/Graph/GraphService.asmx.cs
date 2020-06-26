@@ -26,6 +26,10 @@ namespace Graph
             {
                 option = "newCases";
             }
+            else if (option == "deaths" && source == "hopkins_data")
+            {
+                option = "newDeaths";
+            }
 
             System.Diagnostics.Debug.WriteLine("test");
             string column;

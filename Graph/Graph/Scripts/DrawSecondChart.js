@@ -56,7 +56,7 @@
                             labels: aLabels,
                             datasets: [
                                 {
-                                    label: cntryOne,
+                                    label: src + " " + cntryOne,
                                     data: aDatasets1,
                                     borderColor: [
                                         '#1b9e77'
@@ -64,7 +64,7 @@
                                     borderWidth: 1
                                 },
                                 {
-                                    label: cntryTwo,
+                                    label: src + " " +  cntryTwo,
                                     data: aDatasets2,
                                     borderColor: [
                                         '#d95f02'
