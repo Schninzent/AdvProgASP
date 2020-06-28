@@ -40,11 +40,7 @@
                 }
 
                 var ctx = document.getElementById('myChart').getContext('2d');
-                //destroy old chart data
-                //                if (window.bar != undefined)
-                //                    window.bar.destroy();
-                //
-                //                window.bar = new Chart(ctx,
+              
                 window.myChart2 = new Chart(ctx,
                     {
                         type: 'line',

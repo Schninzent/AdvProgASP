@@ -1,4 +1,10 @@
-﻿$(document).ready(function () {
+﻿var ctx = document.getElementById("myChart").getContext("2d");
+window.myChart = new Chart(ctx, { type: "line" });
+
+var ctxx = document.getElementById("myChart2").getContext("2d");
+window.myChart2 = new Chart(ctxx, { type: "line" });
+
+$(document).ready(function () {
     $("#btn_line_chart").on("click",
         function () {
             //on click get values from html
@@ -131,53 +137,20 @@
                         }
                     });
             }
-//            document.getElementById('hideEcdc').addEventListener('click', function () {
-////                myChart.data.datasets.forEach(function (ds) {
-////                ds.hidden = !ds.hidden;
-//                myChart.update();
-//            });
-
-            //                    on success fill Chart data with ajax response data
-            //            function onSuccess(response) {
-            //                //                        alert("success function");
-            //                var aData = response.d; //response.d to get jquery ajax response
-            //                var aLabels = aData[0];
-            //                var aDatasets1 = aData[1];
-            //                var aDatasets2 = aData[2];
-            //
-            //                var ctx = document.getElementById('myChart').getContext('2d');
-            //                //destroy old chart data
-            ////                if (window.bar != undefined)
-            ////                    window.bar.destroy();
-            ////
-            ////                window.bar = new Chart(ctx,
-            //                var myChart2 = new Chart(ctx,
-            //                    {
-            //                        type: 'line',
-            //                        data: {
-            //                            labels: aLabels,
-            //                            datasets: [
-            //                                {
-            //                                    label: cntryOne,
-            //                                    data: aDatasets1,
-            //                                    borderColor: [
-            //                                        '#1b9e77'
-            //                                    ],
-            //                                    borderWidth: 1
-            //                                },
-            //                                {
-            //                                    label: cntryTwo,
-            //                                    data: aDatasets2,
-            //                                    borderColor: [
-            //                                        '#d95f02'
-            //                                    ],
-            //                                    borderWidth: 1
-            //                                }
-            //                            ]
-            //                        }
-            //                    });
-            //
-            //            }
+            document.getElementById('hideEcdc').addEventListener('click', function () {
+                myChart.data.datasets.forEach(function (ds) {
+//                    ds.hidden = !ds.hidden;
+                    if (myChart.data.datasets[0].data === jhuCountry1) {
+                        alert("success amk");
+                        ds.data.datasets[0].data.hidden = !ds.data.datasets[0].data.hidden;
+                       
+                    } else {
+                        alert("else");
+                        ds.hidden = !ds.hidden;
+                    }
+                });
+                myChart.update();
+            });
 
             function onErrorCall(repo) {
                 alert("Woops something went wrong, pls try later !");

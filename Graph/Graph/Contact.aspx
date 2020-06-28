@@ -1,12 +1,13 @@
 ﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="Graph.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-
     <script src="Scripts/jquery-3.4.1.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
+    <link href="~/Content/StyleSheet1.css" rel="stylesheet" type="text/css" media="screen" runat="server"/>
 
     <div style="float: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; margin-left: 30px; width: 1280px;">
 
+        <p id="para">Was geht</p>
 
         <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
         </asp:DropDownList>
@@ -37,9 +38,6 @@
     </div>
 
     <script src="Scripts/TwoCharts.js"></script>
-
-
-
 
 
 </asp:Content>

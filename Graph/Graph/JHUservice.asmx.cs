@@ -49,14 +49,23 @@ namespace Graph
             //get first data set
             string queryDataSet1 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryOne);
 
+
+            // DataTable dtDataItemsSets1 = new DataTable();
+            // DataRow row;
+            // row = dtDataItemsSets1.NewRow();
+            // row["quantity"] = "0";
+            //
+            // dtDataItemsSets1.Rows.Add(row);
+            //
+            // dtDataItemsSets1 = GetData(queryDataSet1);
+            // ArrayList lstdataItem1 = new ArrayList();
+
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
-            System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
-            // List<string> lstdataItem1 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
-                // lstdataItem1.Add(Convert.ToInt32(dr["quantity"].ToString()));
                 lstdataItem1.Add(dr["quantity"].ToString());
+
             }
             iData.Add(lstdataItem1);
 
