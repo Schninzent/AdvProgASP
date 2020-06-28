@@ -64,13 +64,11 @@
             }
 
             function drawGraph() {
+
                 if (window.myChart instanceof Chart) {
                     window.myChart.destroy();
                 }
                 var ctx = document.getElementById("myChart").getContext("2d");
-                //                        //destroy old chart data
-                //                if (window.bar != undefined)
-                //                    window.bar.destroy();
 
                 window.myChart = new Chart(ctx,
                     {
@@ -95,15 +93,17 @@
                                     borderWidth: 1
                                 }
                             ]
-                        }
+            }
                     });
+
+                
+
                 if (window.myChart2 instanceof Chart) {
                     window.myChart2.destroy();
                 }
+
+                
                 var ctxx = document.getElementById("myChart2").getContext("2d");
-                //                        //destroy old chart data
-                //                if (window.bar != undefined)
-                //                    window.bar.destroy();
 
                 window.myChart2 = new Chart(ctxx,
                     {
@@ -131,6 +131,11 @@
                         }
                     });
             }
+//            document.getElementById('hideEcdc').addEventListener('click', function () {
+////                myChart.data.datasets.forEach(function (ds) {
+////                ds.hidden = !ds.hidden;
+//                myChart.update();
+//            });
 
             //                    on success fill Chart data with ajax response data
             //            function onSuccess(response) {

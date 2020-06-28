@@ -7,10 +7,6 @@
 
     <div style="float: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; margin-left: 30px; width: 1280px;">
 
-        <%-- <input type="checkbox" id="ECDC" name="ECDC" value="ecdc_data"> --%>
-        <%-- <label for="ECDC">ECDC</label><br> --%>
-        <%-- <input type="checkbox" id="JHU" name="JHU" value="hopkins_data"> --%>
-        <%-- <label for="JHU">JHU</label><br> --%>
 
         <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
         </asp:DropDownList>
@@ -23,20 +19,15 @@
             <option value="deaths">Deaths</option>
         </select>
 
-        <%-- <select id="ddl_Source"> --%>
-        <%--     <option value="ecdc_data">ECDC</option> --%>
-        <%--     <option value="hopkins_data">JHU</option> --%>
-        <%-- </select> --%>
         <input id="btn_line_chart" type="button" value="Show"/>
-        <%-- <input id="btn_line_chart2" type="button" value="Show"/> --%>
+        <input id="hideJhu" type="button" value="JHU"/>
+        <input id="hideEcdc" type="button" value="ECDC"/>
+
 
         &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
 "></asp:SqlDataSource>
     </div>
     <br/>
-
-    <%-- <script src="Scripts/DrawChart.js"></script> --%>
-    <%-- <script src="Scripts/DrawSecondChart.js"></script> --%>
 
     <div id="ecdc">
         <canvas id="myChart" height="100" width="300"></canvas>
