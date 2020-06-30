@@ -19,7 +19,7 @@ namespace Graph
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList GetEcdcData(string countryOne, string countryTwo, string option, string isChecked)
+        public ArrayList GetEcdcData(string countryOne, string countryTwo, string option, string isChecked, string corrected)
         {
             if (isChecked == "true" && option == "cases")
             {
@@ -49,6 +49,12 @@ namespace Graph
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
+
+            if (corrected == "true")
+            {
+                lstdataItem1.Add("0");
+            }
+
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
                 lstdataItem1.Add(dr["quantity"].ToString());

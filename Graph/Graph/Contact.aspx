@@ -23,6 +23,10 @@
         <input type="checkbox" id="cumulative" name="Cumulative" value="total">
         <label for="cumulative"> Cumulative</label><br>
 
+        <input type="checkbox" id="CheckBox1" name="CheckBox" value="total">
+        <label for="cumulative"> korrigieren</label><br>
+
+
         
 
         <input id="btn_line_chart" type="button" value="Show" />

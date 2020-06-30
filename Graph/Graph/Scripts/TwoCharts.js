@@ -14,6 +14,13 @@ $(document).ready(function () {
                 chkd = "false";
             }
 
+            var cor;
+            if (document.getElementById('CheckBox1').checked) {
+                cor = "true";
+            } else {
+                cor = "false";
+            }
+
             //on click get values from html
             var cntryOne = $("#MainContent_ddl_one").val();
             var cntryTwo = $("#MainContent_ddl_two").val();
@@ -34,7 +41,8 @@ $(document).ready(function () {
                 countryTwo: cntryTwo,
                 option: opt,
                 source: src,
-                isChecked: chkd
+                isChecked: chkd,
+                corrected: cor
             });
             //send JSON values to the Graph services and call get*Data Method
             $.ajax({

@@ -19,7 +19,7 @@ namespace Graph
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList getJHUData(string countryOne, string countryTwo, string option, string isChecked)
+        public ArrayList getJHUData(string countryOne, string countryTwo, string option, string isChecked, string corrected)
         {
             if (isChecked == "true" && option == "cases")
             {
@@ -53,6 +53,12 @@ namespace Graph
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
+
+            if (corrected == "true")
+            {
+                lstdataItem1.Add("0");
+            }
+
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
                 lstdataItem1.Add(dr["quantity"].ToString());
