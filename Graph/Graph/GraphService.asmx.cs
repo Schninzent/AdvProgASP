@@ -19,7 +19,6 @@ namespace Graph
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-
         public ArrayList getLineChartData(string countryOne, string countryTwo, string option, string source)
         {
             if (option == "cases" && source == "hopkins_data")

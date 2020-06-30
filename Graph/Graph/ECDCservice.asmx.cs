@@ -19,12 +19,18 @@ namespace Graph
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList GetEcdcData(string countryOne, string countryTwo, string option)
+        public ArrayList GetEcdcData(string countryOne, string countryTwo, string option, string isChecked)
         {
-            System.Diagnostics.Debug.WriteLine("test");
+            if (isChecked == "true" && option == "cases")
+            {
+                option = "totalCases";
 
-            // List<object> iData = new List<object>();
-            // List<string> labels = new List<string>();
+            }
+            else if (isChecked == "true" && option == "deaths")
+            {
+                option = "totalDeaths";
+            }
+
             ArrayList iData = new ArrayList();
             ArrayList labels = new ArrayList();
 
@@ -43,10 +49,8 @@ namespace Graph
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
-            // List<string> lstdataItem1 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
-                // lstdataItem1.Add(Convert.ToInt32(dr["quantity"].ToString()));
                 lstdataItem1.Add(dr["quantity"].ToString());
             }
             iData.Add(lstdataItem1);
@@ -56,10 +60,8 @@ namespace Graph
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
-            // List<string> lstdataItem2 = new List<string>();
             foreach (DataRow dr in dtDataItemsSets2.Rows)
             {
-                // lstdataItem2.Add(Convert.ToInt32(dr["quantity"].ToString()));
                 lstdataItem2.Add(dr["quantity"].ToString());
             }
             iData.Add(lstdataItem2);

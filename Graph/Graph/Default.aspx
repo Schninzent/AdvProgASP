@@ -44,6 +44,5 @@
         <canvas id="myChart2" height="100" width="300"></canvas>
     </div>
 
-
     <%-- <script src="Scripts/TwoCharts.js"></script> --%>
 </asp:Content>

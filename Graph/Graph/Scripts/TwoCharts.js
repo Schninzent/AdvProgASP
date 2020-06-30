@@ -7,6 +7,13 @@ window.myChart2 = new Chart(ctxx, { type: "line" });
 $(document).ready(function () {
     $("#btn_line_chart").on("click",
         function () {
+            var chkd;
+            if (document.getElementById('cumulative').checked) {
+                chkd = "true";
+            } else {
+                chkd = "false";
+            }
+
             //on click get values from html
             var cntryOne = $("#MainContent_ddl_one").val();
             var cntryTwo = $("#MainContent_ddl_two").val();
@@ -26,18 +33,17 @@ $(document).ready(function () {
                 countryOne: cntryOne,
                 countryTwo: cntryTwo,
                 option: opt,
-                source: src
+                source: src,
+                isChecked: chkd
             });
-            //send JSON values to GraphService and use getLineChartData Method
+            //send JSON values to the Graph services and call get*Data Method
             $.ajax({
                 type: "POST",
-                //                url: "GraphService.asmx/getLineChartData",
                 url: "ECDCservice.asmx/GetEcdcData",
                 data: jsonData, //JSON data to be send to the server
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
                 success: onSuccessEcdc,
-                //                success: onSuccess,
                 error: onErrorCall
             });
 
@@ -51,7 +57,7 @@ $(document).ready(function () {
                 error: onErrorCall
             });
 
-            function onSuccessJhu(response) {
+            function onSuccessEcdc(response) {
                 var ecdcData = response.d; //response.d to get jquery ajax response
                 ecdcLabels = ecdcData[0];
                 ecdcCountry1 = ecdcData[1];
@@ -60,7 +66,7 @@ $(document).ready(function () {
                 drawGraph();
             }
 
-            function onSuccessEcdc(response) {
+            function onSuccessJhu(response) {
                 var aData = response.d;
                 aLabels = aData[0];
                 jhuCountry1 = aData[1];
@@ -99,8 +105,9 @@ $(document).ready(function () {
                                     borderWidth: 1
                                 }
                             ]
-            }
+                        }
                     });
+                myChart.update();
 
                 
 
@@ -137,20 +144,45 @@ $(document).ready(function () {
                         }
                     });
             }
+
             document.getElementById('hideEcdc').addEventListener('click', function () {
                 myChart.data.datasets.forEach(function (ds) {
-//                    ds.hidden = !ds.hidden;
-                    if (myChart.data.datasets[0].data === jhuCountry1) {
-                        alert("success amk");
-                        ds.data.datasets[0].data.hidden = !ds.data.datasets[0].data.hidden;
-                       
-                    } else {
-                        alert("else");
+                    console.log(ds);
+                    if (ds.label.search(/ecdc/i) === 0) {
+//                        alert("success");
+                        ds.hidden = !ds.hidden;
+                    } 
+                });
+                myChart2.data.datasets.forEach(function (ds) {
+                    console.log(ds);
+                    if (ds.label.search(/ecdc/i) === 0) {
+                        //                        alert("success");
                         ds.hidden = !ds.hidden;
                     }
                 });
                 myChart.update();
+                myChart2.update();
             });
+
+            document.getElementById('hideJhu').addEventListener('click', function () {
+                myChart.data.datasets.forEach(function (ds) {
+                    console.log(ds);
+                    if (ds.label.search("JHU") === 0) {
+                        //                        alert("success");
+                        ds.hidden = !ds.hidden;
+                    }
+                });
+                myChart2.data.datasets.forEach(function (ds) {
+                    console.log(ds);
+                    if (ds.label.search("JHU") === 0) {
+                        //                        alert("success");
+                        ds.hidden = !ds.hidden;
+                    }
+                });
+                myChart.update();
+                myChart2.update();
+            });
+
 
             function onErrorCall(repo) {
                 alert("Woops something went wrong, pls try later !");
