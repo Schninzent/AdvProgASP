@@ -18,15 +18,18 @@
 
             <input type="checkbox" id="cumulative" name="Cumulative" value="total">
             <label for="cumulative">Cumulative</label>
-
-            <%-- <input type="checkbox" id="corrected" name="" value="total"> --%>
-            <%-- <label for="corrected">Correct</label> --%>
         
-             <div id="slidecontainer" style="width: 158px; height: 78px">
 
-                <p>Custom Correction:</p>
-                <input type="range" min="-4" max="4" value="0" step="1" id="correctlist">
+             <div id="slidecontainer" style="width: 300px; height: 80px; float: left">
+                 <p>Custom Correction Country 1:</p>
+                <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry1">
                 <p>Value: <span id="demo"></span></p>
+            </div>
+            
+            <div id="slidecontainer2" style="width: 300px; height: 80px; float: right; ">
+                <p>Custom Correction Country 2:</p>
+                <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry2">
+                <p>Value: <span id="demo2"></span></p>
             </div>
             
             <input id="btn_line_chart" type="button" value="Show" />
@@ -44,18 +47,10 @@
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
 "></asp:SqlDataSource>
-
+    
+    <%-- script to draw Graph with WebService --%>
     <script src="Scripts/TwoCharts.js"></script>
     
     <%-- script for range slider --%>
-    <script>
-        var slider = document.getElementById("correctlist");
-        var output = document.getElementById("demo");
-        output.innerHTML = slider.value;
-
-        slider.oninput = function () {
-            output.innerHTML = this.value;
-        }
-    </script>
-
+    <script src="Scripts/SliderValue.js"></script>
 </asp:Content>

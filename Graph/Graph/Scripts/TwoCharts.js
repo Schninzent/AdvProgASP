@@ -1,26 +1,21 @@
-﻿var ctx = document.getElementById("myChart").getContext("2d");
+﻿//display empty Graphs 
+var ctx = document.getElementById("myChart").getContext("2d");
 window.myChart = new Chart(ctx, { type: "line" });
 
 var ctxx = document.getElementById("myChart2").getContext("2d");
 window.myChart2 = new Chart(ctxx, { type: "line" });
 
+//on click create graphs with data from services
 $(document).ready(function () {
     $("#btn_line_chart").on("click",
         function () {
+            //cumulative or not
             var chkd;
-            var cor;
-
             if (document.getElementById("cumulative").checked) {
                 chkd = "true";
             } else {
                 chkd = "false";
             }
-
-            //on click get values from html
-            var cntryOne = $("#MainContent_ddl_one").val();
-            var cntryTwo = $("#MainContent_ddl_two").val();
-            var opt = $("#ddlOption").val();
-            var src = $("#ddl_Source").val();
 
             var aLabels;
             var jhuCountry1;
@@ -30,6 +25,12 @@ $(document).ready(function () {
             var ecdcCountry1;
             var ecdcCountry2;
 
+            //on click get values from html
+            var cntryOne = $("#MainContent_ddl_one").val();
+            var cntryTwo = $("#MainContent_ddl_two").val();
+            var opt = $("#ddlOption").val();
+            var src = $("#ddl_Source").val();
+
             //values to JSON
             var jsonData = JSON.stringify({
                 countryOne: cntryOne,
@@ -37,8 +38,8 @@ $(document).ready(function () {
                 option: opt,
                 source: src,
                 isChecked: chkd
-                //                corrected: cor
             });
+
             //send JSON values to the Graph services and call get*Data Method
             $.ajax({
                 type: "POST",
@@ -60,21 +61,23 @@ $(document).ready(function () {
                 error: onErrorCall
             });
 
+            
+
             function onSuccessEcdc(response) {
+
                 var ecdcData = response.d; //response.d to get jquery ajax response
                 ecdcLabels = ecdcData[0];
                 ecdcCountry1 = ecdcData[1];
                 ecdcCountry2 = ecdcData[2];
-                //add corrective number
-                var slider = document.getElementById("correctlist");
-                var slValue = slider.value;
-                for (var i = 1; i <= slValue; i++) {
-                    ecdcCountry1.unshift("0");
-                    ecdcCountry2.unshift("0");
-                }
 
-                drawGraph();
-                
+                //add corrective number
+                var slider = document.getElementById("correctCountry1");
+                var slValue = slider.value;
+                doCorrectCountry1(slValue);
+
+                var scndSlider = document.getElementById("correctCountry2");
+                var scndSlValue = scndSlider.value;
+                doCorrectCountry2(scndSlValue);
             }
 
             function onSuccessJhu(response) {
@@ -84,6 +87,37 @@ $(document).ready(function () {
                 jhuCountry2 = aData[2];
 
                 drawGraph();
+            }
+
+            function doCorrectCountry1(sliderValue) {
+
+                if (sliderValue > 0) {
+                    for (var i = 0; i < sliderValue; i++) {
+                        ecdcCountry1.unshift("0");
+                    }
+                    drawGraph();
+                } else if (sliderValue < 0) {
+                    for (var y = 0; y >= sliderValue; y--) {
+                        ecdcCountry1.shift();
+                    }
+                    drawGraph();
+                } else
+                    drawGraph();
+            }
+            function doCorrectCountry2(sliderValue) {
+
+                if (sliderValue > 0) {
+                    for (var i = 0; i < sliderValue; i++) {
+                        ecdcCountry2.unshift("0");
+                    }
+                    drawGraph();
+                } else if (sliderValue < 0) {
+                    for (var y = 0; y >= sliderValue; y--) {
+                        ecdcCountry2.shift();
+                    }
+                    drawGraph();
+                } else
+                    drawGraph();
             }
 
             function drawGraph() {
