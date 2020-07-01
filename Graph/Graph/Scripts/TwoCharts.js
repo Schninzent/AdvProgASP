@@ -8,7 +8,9 @@ $(document).ready(function () {
     $("#btn_line_chart").on("click",
         function () {
             var chkd;
-            if (document.getElementById('cumulative').checked) {
+            var cor;
+
+            if (document.getElementById("cumulative").checked) {
                 chkd = "true";
             } else {
                 chkd = "false";
@@ -35,6 +37,7 @@ $(document).ready(function () {
                 option: opt,
                 source: src,
                 isChecked: chkd
+                //                corrected: cor
             });
             //send JSON values to the Graph services and call get*Data Method
             $.ajax({
@@ -62,8 +65,16 @@ $(document).ready(function () {
                 ecdcLabels = ecdcData[0];
                 ecdcCountry1 = ecdcData[1];
                 ecdcCountry2 = ecdcData[2];
+                //add corrective number
+                var slider = document.getElementById("correctlist");
+                var slValue = slider.value;
+                for (var i = 1; i <= slValue; i++) {
+                    ecdcCountry1.unshift("0");
+                    ecdcCountry2.unshift("0");
+                }
 
                 drawGraph();
+                
             }
 
             function onSuccessJhu(response) {
@@ -76,7 +87,6 @@ $(document).ready(function () {
             }
 
             function drawGraph() {
-
                 if (window.myChart instanceof Chart) {
                     window.myChart.destroy();
                 }
@@ -109,13 +119,10 @@ $(document).ready(function () {
                     });
                 myChart.update();
 
-                
-
                 if (window.myChart2 instanceof Chart) {
                     window.myChart2.destroy();
                 }
 
-                
                 var ctxx = document.getElementById("myChart2").getContext("2d");
 
                 window.myChart2 = new Chart(ctxx,
@@ -149,9 +156,9 @@ $(document).ready(function () {
                 myChart.data.datasets.forEach(function (ds) {
                     console.log(ds);
                     if (ds.label.search(/ecdc/i) === 0) {
-//                        alert("success");
+                        //                        alert("success");
                         ds.hidden = !ds.hidden;
-                    } 
+                    }
                 });
                 myChart2.data.datasets.forEach(function (ds) {
                     console.log(ds);
@@ -182,7 +189,6 @@ $(document).ready(function () {
                 myChart.update();
                 myChart2.update();
             });
-
 
             function onErrorCall(repo) {
                 alert("Woops something went wrong, pls try later !");

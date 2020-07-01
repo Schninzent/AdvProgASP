@@ -24,7 +24,6 @@ namespace Graph
             if (isChecked == "true" && option == "cases")
             {
                 option = "totalCases";
-
             }
             else if (isChecked == "true" && option == "deaths")
             {
@@ -47,12 +46,13 @@ namespace Graph
             string queryDataSet1 = String.Format("select {0} as 'quantity' from ecdc_data where countriesAndTerritories='{1}' Order by month, day,year", option, countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
-            System.Diagnostics.Debug.WriteLine(dtDataItemsSets1.Rows.Count);
             ArrayList lstdataItem1 = new ArrayList();
+
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
                 lstdataItem1.Add(dr["quantity"].ToString());
             }
+
             iData.Add(lstdataItem1);
 
             //get second data set
@@ -60,10 +60,12 @@ namespace Graph
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
+
             foreach (DataRow dr in dtDataItemsSets2.Rows)
             {
                 lstdataItem2.Add(dr["quantity"].ToString());
             }
+
             iData.Add(lstdataItem2);
 
             return iData;

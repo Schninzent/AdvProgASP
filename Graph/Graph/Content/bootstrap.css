@@ -3308,7 +3308,7 @@ input[type="file"] {
 
 input[type="range"] {
     display: block;
-    width: 100%;
+    width: 26%;
 }
 
 select[multiple],

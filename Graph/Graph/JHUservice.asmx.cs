@@ -24,9 +24,8 @@ namespace Graph
             if (isChecked == "true" && option == "cases")
             {
                 option = "totalCases";
-
             }
-            else if(isChecked == "true" && option == "deaths")
+            else if (isChecked == "true" && option == "deaths")
             {
                 option = "totalDeaths";
             }
@@ -49,7 +48,6 @@ namespace Graph
 
             //get first data set
             string queryDataSet1 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryOne);
-
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
