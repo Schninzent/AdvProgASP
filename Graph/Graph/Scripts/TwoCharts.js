@@ -1,4 +1,4 @@
-﻿//display empty Graphs 
+﻿//display empty Graphs
 var ctx = document.getElementById("myChart").getContext("2d");
 window.myChart = new Chart(ctx, { type: "line" });
 
@@ -61,16 +61,13 @@ $(document).ready(function () {
                 error: onErrorCall
             });
 
-            
-
             function onSuccessEcdc(response) {
-
                 var ecdcData = response.d; //response.d to get jquery ajax response
                 ecdcLabels = ecdcData[0];
                 ecdcCountry1 = ecdcData[1];
                 ecdcCountry2 = ecdcData[2];
 
-                //add corrective number
+                //add corrective number for ECDC only
                 var slider = document.getElementById("correctCountry1");
                 var slValue = slider.value;
                 doCorrectCountry1(slValue);
@@ -90,7 +87,6 @@ $(document).ready(function () {
             }
 
             function doCorrectCountry1(sliderValue) {
-
                 if (sliderValue > 0) {
                     for (var i = 0; i < sliderValue; i++) {
                         ecdcCountry1.unshift("0");
@@ -105,7 +101,6 @@ $(document).ready(function () {
                     drawGraph();
             }
             function doCorrectCountry2(sliderValue) {
-
                 if (sliderValue > 0) {
                     for (var i = 0; i < sliderValue; i++) {
                         ecdcCountry2.unshift("0");

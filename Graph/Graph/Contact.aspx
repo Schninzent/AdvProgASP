@@ -18,28 +18,26 @@
 
             <input type="checkbox" id="cumulative" name="Cumulative" value="total">
             <label for="cumulative">Cumulative</label>
-        
 
              <div id="slidecontainer" style="width: 300px; height: 80px; float: left">
                  <p>Custom Correction Country 1:</p>
                 <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry1">
-                <p>Value: <span id="demo"></span></p>
+                <p><span id="demo"></span></p>
             </div>
-            
+
             <div id="slidecontainer2" style="width: 300px; height: 80px; float: right; ">
                 <p>Custom Correction Country 2:</p>
                 <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry2">
-                <p>Value: <span id="demo2"></span></p>
+                <p><span id="demo2"></span></p>
             </div>
-            
+
             <input id="btn_line_chart" type="button" value="Show" />
             <input id="hideJhu" type="button" value="JHU" />
             <input id="hideEcdc" type="button" value="ECDC" />
-           
         </div>
 
     <div id="Data">
-        <br/>
+        <br />
         <canvas id="myChart" height="100" width="300"></canvas>
 
         <canvas id="myChart2" height="100" width="300"></canvas>
@@ -47,10 +45,10 @@
 
     <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
 "></asp:SqlDataSource>
-    
+
     <%-- script to draw Graph with WebService --%>
     <script src="Scripts/TwoCharts.js"></script>
-    
+
     <%-- script for range slider --%>
     <script src="Scripts/SliderValue.js"></script>
 </asp:Content>
