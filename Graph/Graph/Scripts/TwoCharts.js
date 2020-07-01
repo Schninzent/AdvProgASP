@@ -93,7 +93,7 @@ $(document).ready(function () {
                     }
                     drawGraph();
                 } else if (sliderValue < 0) {
-                    for (var y = 0; y >= sliderValue; y--) {
+                    for (var y = 0; y > sliderValue; y--) {
                         ecdcCountry1.shift();
                     }
                     drawGraph();
@@ -107,7 +107,7 @@ $(document).ready(function () {
                     }
                     drawGraph();
                 } else if (sliderValue < 0) {
-                    for (var y = 0; y >= sliderValue; y--) {
+                    for (var y = 0; y > sliderValue; y--) {
                         ecdcCountry2.shift();
                     }
                     drawGraph();
