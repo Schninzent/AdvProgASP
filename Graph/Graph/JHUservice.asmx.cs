@@ -51,6 +51,7 @@ namespace Graph
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
+            
             foreach (DataRow dr in dtDataItemsSets1.Rows)
             {
                 lstdataItem1.Add(dr["quantity"].ToString());

@@ -6,32 +6,39 @@
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <style>
        
-       
-        /* .charts { height: 200px; }  */
-        </style>
+       .row {
+           text-align: center;
+       }
+        
+    </style>
 
     <div class="container my-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; height: 619px;">
         
         <div class="row options">
-            <div class="col-lg">
+            <div class="col">
                 <select id="ddlOption">
                     <option value="cases">Cases</option>
                     <option value="deaths">Deaths</option>
                 </select>
-                <input id="hideJhu" type="button" value="JHU"/>
-                <input id="hideEcdc" type="button" value="ECDC"/>
-                <input id="btn_line_chart" type="button" value="Update"/>
+                <%-- <input id="hideJhu" type="button" value="JHU"/> --%>
+                <%-- <input id="hideEcdc" type="button" value="ECDC"/> --%>
+                <input type="checkbox" id="ecdc" name="ECDC" value="total">
+                <label for="ecdc">ECDC</label>
+                
+                <input type="checkbox" id="jhu" name="JHU" value="total">
+                <label for="jhu">JHU</label>
 
                 <input type="checkbox" id="cumulative" name="Cumulative" value="total">
                 <label for="cumulative">Cumulative</label>
-
+                
+                <input id="btn_line_chart" type="button" value="Update"/>
 
             </div>
 
         </div>
 
         <div class="row cntryOptions">
-            <div class="col-lg cntryOneOptions">
+            <div class="col cntryOneOptions">
                 <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
                 </asp:DropDownList>
                 
@@ -44,7 +51,7 @@
                 </div>
             </div>
             
-            <div class="col-lg cntryTwoOptions">
+            <div class="col cntryTwoOptions">
                 <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
                 </asp:DropDownList>
                 
@@ -59,12 +66,12 @@
             </div>
         </div>
         
-        <div class="row charts">
-            <div class="col-lg">
-                <canvas id="myChart" ></canvas>
+        <div class="row ">
+            <div class="col ">
+                <canvas id="myChart"   ></canvas>
             </div>
             
-            <div class="col-lg">
+            <div class="col">
                 <canvas id="myChart2"></canvas>
 
             </div>

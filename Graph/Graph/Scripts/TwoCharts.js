@@ -64,28 +64,44 @@ $(document).ready(function () {
             function onSuccessEcdc(response) {
                 var ecdcData = response.d; //response.d to get jquery ajax response
                 ecdcLabels = ecdcData[0];
-                ecdcCountry1 = ecdcData[1];
-                ecdcCountry2 = ecdcData[2];
+                //if ecdc is chosen
+                if (document.getElementById("ecdc").checked) {
+                    ecdcCountry1 = ecdcData[1];
+                    ecdcCountry2 = ecdcData[2];
 
-                //add corrective number for ECDC only
-                var slider = document.getElementById("correctCountry1");
-                var slValue = slider.value;
-                doCorrectCountry1(slValue);
+                    //add corrective number for ECDC only
+                    var slider = document.getElementById("correctCountry1");
+                    var slValue = slider.value;
+                    doCorrectCountry1(slValue);
 
-                var scndSlider = document.getElementById("correctCountry2");
-                var scndSlValue = scndSlider.value;
-                doCorrectCountry2(scndSlValue);
+                    var scndSlider = document.getElementById("correctCountry2");
+                    var scndSlValue = scndSlider.value;
+                    doCorrectCountry2(scndSlValue);
+
+                } else {
+                    ecdcCountry1 = "";
+                    ecdcCountry2 = "";
+                    drawGraph();
+                }
+
             }
 
             function onSuccessJhu(response) {
                 var aData = response.d;
                 aLabels = aData[0];
-                jhuCountry1 = aData[1];
-                jhuCountry2 = aData[2];
+                if (document.getElementById("jhu").checked) {
+                    jhuCountry1 = aData[1];
+                    jhuCountry2 = aData[2];
+                    drawGraph();
 
-                drawGraph();
+                } else {
+                    jhuCountry1 = "";
+                    jhuCountry2 = "";
+                    drawGraph();
+                }
+
             }
-
+            //Functions for correction 
             function doCorrectCountry1(sliderValue) {
                 if (sliderValue > 0) {
                     for (var i = 0; i < sliderValue; i++) {
@@ -114,7 +130,7 @@ $(document).ready(function () {
                 } else
                     drawGraph();
             }
-
+            //Graphs get drawn
             function drawGraph() {
                 if (window.myChart instanceof Chart) {
                     window.myChart.destroy();
@@ -144,7 +160,7 @@ $(document).ready(function () {
                                     borderWidth: 1
                                 }
                             ]
-                        }
+                        },option:{responsive: true}
                     });
                 myChart.update();
 
@@ -177,7 +193,7 @@ $(document).ready(function () {
                                     borderWidth: 1
                                 }
                             ]
-                        }
+                        }, option: { responsive: true }
                     });
             }
 
