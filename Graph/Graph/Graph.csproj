@@ -168,7 +168,7 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="GraphService.asmx" />
+    <Content Include="RKIService.asmx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -262,6 +262,7 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
+    <Content Include="Scripts\DrawRKICharts.js" />
     <Content Include="Scripts\TwoCharts.js" />
     <Content Include="Scripts\DrawSecondChart.js" />
     <Content Include="Scripts\DrawChart.js" />
@@ -351,8 +352,8 @@
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
     </Compile>
-    <Compile Include="GraphService.asmx.cs">
-      <DependentUpon>GraphService.asmx</DependentUpon>
+    <Compile Include="RKIService.asmx.cs">
+      <DependentUpon>RKIService.asmx</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
   </ItemGroup>

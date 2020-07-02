@@ -19,35 +19,14 @@ namespace Graph
         private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
-        public ArrayList getLineChartData(string countryOne, string countryTwo, string option, string source)
+        public ArrayList getRkiData(string countryOne, string countryTwo, string option)
         {
-            if (option == "cases" && source == "hopkins_data")
-            {
-                option = "newCases";
-            }
-            else if (option == "deaths" && source == "hopkins_data")
-            {
-                option = "newDeaths";
-            }
-
-            System.Diagnostics.Debug.WriteLine("test");
-            string column;
-            if (source == "ecdc_data")
-            {
-                column = "countriesAndTerritories";
-            }
-            else
-            {
-                column = "country";
-            }
-
-            // List<object> iData = new List<object>();
-            // List<string> labels = new List<string>();
+            
             ArrayList iData = new ArrayList();
             ArrayList labels = new ArrayList();
 
             //get labels
-            string query1 = "select concat(day ,'.' , month ) as date from ecdc_data where geoID='DE' Order by month, day,year";
+            string query1 = "select concat(day ,'.' , month ) as date from rki_data where bundesland='Hessen' Order by month, day,year";
             DataTable dtLabels = GetData(query1);
             foreach (DataRow drow in dtLabels.Rows)
             {
@@ -56,7 +35,7 @@ namespace Graph
             iData.Add(labels);
 
             //get first data set
-            string queryDataSet1 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option, source, column, countryOne);
+            string queryDataSet1 = String.Format("select {0} as 'quantity' from rki_data where bundesland='{1}' Order by month, day,year", option,countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
@@ -69,7 +48,7 @@ namespace Graph
             iData.Add(lstdataItem1);
 
             //get second data set
-            string queryDataSet2 = String.Format("select {0} as 'quantity' from {1} where {2}='{3}' Order by month, day,year", option, source, column, countryTwo);
+            string queryDataSet2 = String.Format("select {0} as 'quantity' from rki_data where bundesland='{1}' Order by month, day,year", option, countryTwo);
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();

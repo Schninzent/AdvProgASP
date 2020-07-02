@@ -12,7 +12,7 @@
         
     </style>
 
-    <div class="container my-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; height: 619px;">
+    <div class="container my-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif;">
         
         <div class="row options">
             <div class="col">
@@ -77,7 +77,41 @@
             </div>
         </div>
 
-      
+      <%----------------------------------- RKI ---------------------------------------------------%>
+        
+        <div class="row rkiOptions">
+            <div class="col">
+                <select id="ddlRkiOption">
+                    <option value="cases">Cases</option>
+                    <option value="deaths">Deaths</option>
+                </select>
+
+                <input id="btn_rki_chart" type="button" value="Update"/>
+
+            </div>
+
+        </div>
+        
+        <div class="row bundesLandOptions">
+            <div class="col bundesLaender">
+                <asp:DropDownList ID="ddl_BundesLandOne" runat="server" DataSourceID="rkiData" DataTextField="bundesland" DataValueField="bundesland"></asp:DropDownList>
+                <asp:DropDownList ID="ddl_BundesLandTwo" runat="server" DataSourceID="rkiData" DataTextField="bundesland" DataValueField="bundesland"></asp:DropDownList>
+
+                <asp:SqlDataSource ID="rkiData" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="Select distinct bundesland from rki_data"></asp:SqlDataSource>
+            </div>
+
+        </div>
+        
+        <div class="row rkiData">
+            <div class="col ">
+            </div>
+            <div class="col ">
+                <canvas id="rkiChart"></canvas>
+            </div>
+            <div class="col ">
+            </div>
+        </div>
+
     </div>
 
 
@@ -86,7 +120,8 @@
 
     <%-- script to draw Graph with WebService --%>
     <script src="Scripts/TwoCharts.js"></script>
-
+    <%-- script to draw Graph with WebService --%>
+    <script src="Scripts/DrawRKICharts.js"></script>
     <%-- script for range slider --%>
     <script src="Scripts/SliderValue.js"></script>
 </asp:Content>
