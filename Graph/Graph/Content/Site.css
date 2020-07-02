@@ -10,7 +10,9 @@ body {
     padding-left: 15px;
     padding-right: 15px;
     height: 1000px;
-    width: 1200px;
+}
+.container {
+    width: 1900px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */

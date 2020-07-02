@@ -5,9 +5,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
     <script src="Scripts/bootstrap.bundle.min.js"></script>
     <style>
-        .my-container {
-            border: 1px solid black;
-        }
+       
        
         /* .charts { height: 200px; }  */
         </style>
