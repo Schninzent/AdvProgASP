@@ -9,17 +9,19 @@ body {
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    height: 1000px;
+    width: 1200px;
 }
 
 /* Set widths on the form inputs since otherwise they're 100% wide */
 input,
 select,
 textarea {
-    max-width: 280px;
+    max-width: 1500px;
 }
 
 /* Responsive: Portrait tablets and up */
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1000px) {
     .jumbotron {
         margin-top: 20px;
     }
