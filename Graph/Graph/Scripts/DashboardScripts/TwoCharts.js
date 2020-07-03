@@ -1,9 +1,9 @@
 ﻿//display empty Graphs
-var ctx = document.getElementById("myChart").getContext("2d");
-window.myChart = new Chart(ctx, { type: "line" });
+var ctx = document.getElementById("firstChart").getContext("2d");
+window.firstChart = new Chart(ctx, { type: "line" });
 
-var ctxx = document.getElementById("myChart2").getContext("2d");
-window.myChart2 = new Chart(ctxx, { type: "line" });
+var ctxx = document.getElementById("secondChart").getContext("2d");
+window.secondChart = new Chart(ctxx, { type: "line" });
 
 //on click create graphs with data from services
 $(document).ready(function () {
@@ -25,7 +25,7 @@ $(document).ready(function () {
             var ecdcCountry1;
             var ecdcCountry2;
 
-            //on click get values from html
+            //on click get values from html inputs
             var cntryOne = $("#MainContent_ddl_one").val();
             var cntryTwo = $("#MainContent_ddl_two").val();
             var opt = $("#ddlOption").val();
@@ -89,6 +89,7 @@ $(document).ready(function () {
             function onSuccessJhu(response) {
                 var aData = response.d;
                 aLabels = aData[0];
+                //if JHU is chosen
                 if (document.getElementById("jhu").checked) {
                     jhuCountry1 = aData[1];
                     jhuCountry2 = aData[2];
@@ -132,12 +133,12 @@ $(document).ready(function () {
             }
             //Graphs get drawn
             function drawGraph() {
-                if (window.myChart instanceof Chart) {
-                    window.myChart.destroy();
+                if (window.firstChart instanceof Chart) {
+                    window.firstChart.destroy();
                 }
-                var ctx = document.getElementById("myChart").getContext("2d");
+                var ctx = document.getElementById("firstChart").getContext("2d");
 
-                window.myChart = new Chart(ctx,
+                window.firstChart = new Chart(ctx,
                     {
                         type: "line",
                         data: {
@@ -162,15 +163,15 @@ $(document).ready(function () {
                             ]
                         },option:{responsive: true}
                     });
-                myChart.update();
+                firstChart.update();
 
-                if (window.myChart2 instanceof Chart) {
-                    window.myChart2.destroy();
+                if (window.secondChart instanceof Chart) {
+                    window.secondChart.destroy();
                 }
 
-                var ctxx = document.getElementById("myChart2").getContext("2d");
+                var ctxx = document.getElementById("secondChart").getContext("2d");
 
-                window.myChart2 = new Chart(ctxx,
+                window.secondChart = new Chart(ctxx,
                     {
                         type: "line",
                         data: {
@@ -198,41 +199,41 @@ $(document).ready(function () {
             }
 
             document.getElementById('hideEcdc').addEventListener('click', function () {
-                myChart.data.datasets.forEach(function (ds) {
+                firstChart.data.datasets.forEach(function (ds) {
                     console.log(ds);
                     if (ds.label.search(/ecdc/i) === 0) {
                         //                        alert("success");
                         ds.hidden = !ds.hidden;
                     }
                 });
-                myChart2.data.datasets.forEach(function (ds) {
+                secondChart.data.datasets.forEach(function (ds) {
                     console.log(ds);
                     if (ds.label.search(/ecdc/i) === 0) {
                         //                        alert("success");
                         ds.hidden = !ds.hidden;
                     }
                 });
-                myChart.update();
-                myChart2.update();
+                firstChart.update();
+                secondChart.update();
             });
 
             document.getElementById('hideJhu').addEventListener('click', function () {
-                myChart.data.datasets.forEach(function (ds) {
+                firstChart.data.datasets.forEach(function (ds) {
                     console.log(ds);
                     if (ds.label.search("JHU") === 0) {
                         //                        alert("success");
                         ds.hidden = !ds.hidden;
                     }
                 });
-                myChart2.data.datasets.forEach(function (ds) {
+                secondChart.data.datasets.forEach(function (ds) {
                     console.log(ds);
                     if (ds.label.search("JHU") === 0) {
                         //                        alert("success");
                         ds.hidden = !ds.hidden;
                     }
                 });
-                myChart.update();
-                myChart2.update();
+                firstChart.update();
+                secondChart.update();
             });
 
             function onErrorCall(repo) {

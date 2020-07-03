@@ -68,11 +68,11 @@
         
         <div class="row ">
             <div class="col ">
-                <canvas id="myChart"   ></canvas>
+                <canvas id="firstChart"   ></canvas>
             </div>
             
             <div class="col">
-                <canvas id="myChart2"></canvas>
+                <canvas id="secondChart"></canvas>
 
             </div>
         </div>

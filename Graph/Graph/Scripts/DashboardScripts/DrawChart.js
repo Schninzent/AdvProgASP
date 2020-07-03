@@ -1,72 +1,63 @@
-﻿//display empty Graphs
-var ctx = document.getElementById("rkiChart").getContext("2d");
-window.myChart = new Chart(ctx, { type: "line" });
-
-//on click create graphs with data from services
-$(document).ready(function () {
-    $("#btn_rki_chart").on("click",
+﻿$(document).ready(function () {
+    $("#btn_line_chart").on('click',
         function () {
-            
-            var aLabels;
-            var rkiCountry1;
-            var rkiCountry2;
-
-
             //on click get values from html
-            var cntryOne = $("#MainContent_ddl_BundesLandOne").val();
-            var cntryTwo = $("#MainContent_ddl_BundesLandTwo").val();
-            var opt = $("#ddlRkiOption").val();
+            var cntryOne = $('#MainContent_ddl_one').val();
+            var cntryTwo = $('#MainContent_ddl_two').val();
+            var opt = $('#ddlOption').val();
+            var src = $('#ddl_Source').val();
 
             //values to JSON
             var jsonData = JSON.stringify({
                 countryOne: cntryOne,
                 countryTwo: cntryTwo,
-                option: opt
+                option: opt,
+                source: src
             });
-
-            //send JSON values to the Graph services and call get*Data Method
+            //send JSON values to GraphService and use getLineChartData Method
             $.ajax({
                 type: "POST",
-                url: "RKIservice.asmx/getRkiData",
+                url: "GraphService.asmx/getLineChartData",
+                //                        url: "ECDCservice.asmx/GetEcdcData",
                 data: jsonData, //JSON data to be send to the server
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                //                        success: onSuccessEcdc,
                 success: onSuccess,
                 error: onErrorCall
             });
-
 
             //on success fill Chart data with ajax response data
             function onSuccess(response) {
                 // alert("success function");
                 var aData = response.d; //response.d to get jquery ajax response
-                 aLabels = aData[0];
-                 rkiCountry1 = aData[1];
-                 rkiCountry2 = aData[2];
+                var aLabels = aData[0];
+                var aDatasets1 = aData[1];
+                var aDatasets2 = aData[2];
 
-                if (window.rkiChart instanceof Chart) {
-                    window.rkiChart.destroy();
+                if (window.secondChart instanceof Chart) {
+                    window.secondChart.destroy();
                 }
 
-                var ctx = document.getElementById('rkiChart').getContext('2d');
-
-                window.rkiChart = new Chart(ctx,
+                var ctx = document.getElementById('firstChart').getContext('2d');
+              
+                window.secondChart = new Chart(ctx,
                     {
                         type: 'line',
                         data: {
                             labels: aLabels,
                             datasets: [
                                 {
-                                    label: cntryOne,
-                                    data: rkiCountry1,
+                                    label: src + " " +  cntryOne,
+                                    data: aDatasets1,
                                     borderColor: [
                                         '#1b9e77'
                                     ],
                                     borderWidth: 1
                                 },
                                 {
-                                    label: cntryTwo,
-                                    data: rkiCountry2,
+                                    label: src + " " + cntryTwo,
+                                    data: aDatasets2,
                                     borderColor: [
                                         '#d95f02'
                                     ],

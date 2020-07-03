@@ -2,47 +2,129 @@
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <script src="Scripts/jquery-3.4.1.js"></script>
+    <%-- CDN Link for Chart.js --%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-    <link href="~/Styles/StyleSheet1.css" rel="stylesheet" type="text/css" media="screen" runat="server" />
-    <div style="float: left; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif; margin-left: 30px; width: 1280px;">
+    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <style>
+       
+       .row {
+           text-align: center;
+       }
+        
+    </style>
 
-        <%-- <input type="checkbox" id="ECDC" name="ECDC" value="ecdc_data"> --%>
-        <%-- <label for="ECDC">ECDC</label><br> --%>
-        <%-- <input type="checkbox" id="JHU" name="JHU" value="hopkins_data"> --%>
-        <%-- <label for="JHU">JHU</label><br> --%>
+    <div class="container my-container" style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, Sans-Serif;">
+        
+        <%------------------------- JHU and ECDC ----------------------------------------%>
+        <div class="row options">
+            <div class="col">
+                <select id="ddlOption">
+                    <option value="cases">Cases</option>
+                    <option value="deaths">Deaths</option>
+                </select>
+                <%-- <input id="hideJhu" type="button" value="JHU"/> --%>
+                <%-- <input id="hideEcdc" type="button" value="ECDC"/> --%>
+                <input type="checkbox" id="ecdc" name="ECDC" value="total">
+                <label for="ecdc">ECDC</label>
+                
+                <input type="checkbox" id="jhu" name="JHU" value="total">
+                <label for="jhu">JHU</label>
 
-        <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
-        </asp:DropDownList>
+                <input type="checkbox" id="cumulative" name="Cumulative" value="total">
+                <label for="cumulative">Cumulative</label>
+                
+                <input id="btn_line_chart" type="button" value="Update"/>
 
-        <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
-        </asp:DropDownList>
+            </div>
 
-        <select id="ddlOption">
-            <option value="cases">Cases</option>
-            <option value="deaths">Deaths</option>
-        </select>
+        </div>
 
-        <select id="ddl_Source">
-            <option value="ecdc_data">ECDC</option>
-            <option value="hopkins_data">JHU</option>
-        </select>
-        <input id="btn_line_chart" type="button" value="Show" />
-        <input id="btn_line_chart2" type="button" value="Show" />
+        <div class="row cntryOptions">
+            <div class="col cntryOneOptions">
+                <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+                </asp:DropDownList>
+                
+                <div id="slidecontainer" >
+                    <p>Custom Correction Country 1:</p>
+                    <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry1">
+                    <p>
+                        <span id="demo"></span>
+                    </p>
+                </div>
+            </div>
+            
+            <div class="col cntryTwoOptions">
+                <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+                </asp:DropDownList>
+                
+                
+                <div id="slidecontainer2" >
+                    <p>Custom Correction Country 2:</p>
+                    <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry2">
+                    <p>
+                        <span id="demo2"></span>
+                    </p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row ">
+            <div class="col ">
+                <canvas id="firstChart"   ></canvas>
+            </div>
+            
+            <div class="col">
+                <canvas id="secondChart"></canvas>
 
-        &nbsp;<asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
+            </div>
+        </div>
+
+      <%----------------------------------- RKI ---------------------------------------------------%>
+        
+        <div class="row rkiOptions">
+            <div class="col">
+                <select id="ddlRkiOption">
+                    <option value="cases">Cases</option>
+                    <option value="deaths">Deaths</option>
+                </select>
+
+                <input id="btn_rki_chart" type="button" value="Update"/>
+
+            </div>
+
+        </div>
+        
+        <div class="row bundesLandOptions">
+            <div class="col bundesLaender">
+                <asp:DropDownList ID="ddl_BundesLandOne" runat="server" DataSourceID="rkiData" DataTextField="bundesland" DataValueField="bundesland"></asp:DropDownList>
+                <asp:DropDownList ID="ddl_BundesLandTwo" runat="server" DataSourceID="rkiData" DataTextField="bundesland" DataValueField="bundesland"></asp:DropDownList>
+            </div>
+
+        </div>
+        
+        <div class="row rkiData">
+            <div class="col ">
+            </div>
+            <div class="col ">
+                <canvas id="rkiChart"></canvas>
+            </div>
+            <div class="col ">
+            </div>
+        </div>
+
+    </div>
+
+    <%-- The SQL Data Source ConnectionStrings for the Dropdownlists --%>
+    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
 "></asp:SqlDataSource>
-    </div>
-    <br />
+    <asp:SqlDataSource ID="rkiData" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="Select distinct bundesland from rki_data"></asp:SqlDataSource>
 
-    <script src="Scripts/DrawChart.js"></script>
-    <script src="Scripts/DrawSecondChart.js"></script>
 
-    <div id="ecdc">
-        <canvas id="myChart" height="100" width="300"></canvas>
-    </div>
-    <div id="jhu">
-        <canvas id="myChart2" height="100" width="300"></canvas>
-    </div>
+    <%-- script to draw the first two Graphs with WebService --%>
+    <script src="Scripts/DashboardScripts/TwoCharts.js"></script>
+    <%-- script to draw the German Graph --%>
+    <script src="Scripts/DashboardScripts/DrawRKICharts.js"></script>
+    <%-- script for range slider --%>
+    <script src="Scripts/DashboardScripts/SliderValue.js"></script>
 
-    <%-- <script src="Scripts/TwoCharts.js"></script> --%>
 </asp:Content>

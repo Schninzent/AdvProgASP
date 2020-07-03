@@ -173,6 +173,11 @@
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DashboardScripts\DrawChart.js" />
+    <Content Include="Scripts\DashboardScripts\DrawRKICharts.js" />
+    <Content Include="Scripts\DashboardScripts\DrawSecondChart.js" />
+    <Content Include="Scripts\DashboardScripts\SliderValue.js" />
+    <Content Include="Scripts\DashboardScripts\TwoCharts.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
     <Content Include="Scripts\esm\popper-utils.min.js" />
     <Content Include="Scripts\esm\popper.js" />
@@ -198,7 +203,6 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
-    <Content Include="Scripts\SliderValue.js" />
     <Content Include="Scripts\src\index.js" />
     <Content Include="Scripts\src\methods\defaults.js" />
     <Content Include="Scripts\src\methods\destroy.js" />
@@ -262,10 +266,6 @@
     <Content Include="Scripts\src\utils\setAttributes.js" />
     <Content Include="Scripts\src\utils\setStyles.js" />
     <Content Include="Scripts\src\utils\setupEventListeners.js" />
-    <Content Include="Scripts\DrawRKICharts.js" />
-    <Content Include="Scripts\TwoCharts.js" />
-    <Content Include="Scripts\DrawSecondChart.js" />
-    <Content Include="Scripts\DrawChart.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />

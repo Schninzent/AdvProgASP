@@ -33,6 +33,24 @@ namespace Graph
         protected global::System.Web.UI.WebControls.DropDownList ddl_two;
 
         /// <summary>
+        /// ddl_BundesLandOne-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_BundesLandOne;
+
+        /// <summary>
+        /// ddl_BundesLandTwo-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddl_BundesLandTwo;
+
+        /// <summary>
         /// SqlDataSource1-Steuerelement
         /// </summary>
         /// <remarks>
@@ -40,5 +58,14 @@ namespace Graph
         /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
         /// </remarks>
         protected global::System.Web.UI.WebControls.SqlDataSource SqlDataSource1;
+
+        /// <summary>
+        /// rkiData-Steuerelement
+        /// </summary>
+        /// <remarks>
+        /// Automatisch generiertes Feld
+        /// Zum Ändern Felddeklaration aus der Designerdatei in eine Code-Behind-Datei verschieben.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.SqlDataSource rkiData;
     }
 }
