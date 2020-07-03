@@ -3,6 +3,8 @@ using System;
 using System.Collections;
 using System.Data;
 using System.Web.Services;
+using System.Configuration;
+
 
 namespace Graph
 {
@@ -16,11 +18,12 @@ namespace Graph
     [System.Web.Script.Services.ScriptService]
     public class JHUservice : System.Web.Services.WebService
     {
-        private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
 
         [WebMethod]
         public ArrayList getJHUData(string countryOne, string countryTwo, string option, string isChecked)
         {
+            string extra = "month >=3";
+
             if (isChecked == "true" && option == "cases")
             {
                 option = "totalCases";
@@ -38,7 +41,7 @@ namespace Graph
             ArrayList labels = new ArrayList();
 
             //get labels
-            string query1 = "select concat(day ,'.' , month ) as date from hopkins_data where country='Germany' Order by month, day,year";
+            string query1 = String.Format("select concat(day ,'.' , month ) as date from AdvancedProgramming.Hopkins_Data where country='Germany' AND {0} Order by month, day,year",extra);
             DataTable dtLabels = GetData(query1);
             foreach (DataRow drow in dtLabels.Rows)
             {
@@ -47,7 +50,7 @@ namespace Graph
             iData.Add(labels);
 
             //get first data set
-            string queryDataSet1 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryOne);
+            string queryDataSet1 = String.Format("select {0} as 'quantity' from AdvancedProgramming.Hopkins_Data where country='{1}' AND {2} Order by month, day,year", option, countryOne,extra);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
@@ -59,7 +62,7 @@ namespace Graph
             iData.Add(lstdataItem1);
 
             //get second data set
-            string queryDataSet2 = String.Format("select {0} as 'quantity' from hopkins_data where country='{1}' Order by month, day,year", option, countryTwo);
+            string queryDataSet2 = String.Format("select {0} as 'quantity' from AdvancedProgramming.Hopkins_Data where country='{1}' AND {2} Order by month, day,year", option, countryTwo,extra);
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
@@ -77,6 +80,9 @@ namespace Graph
         //method to fill a dataset according to a query string
         public DataTable GetData(string strQuery)
         {
+            string conn = ConfigurationManager.ConnectionStrings["AdvancedProgrammingConnectionString"].ConnectionString;
+            MySqlConnection con = new MySqlConnection(conn);
+
             MySqlDataAdapter adapter = new MySqlDataAdapter(strQuery, con);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);

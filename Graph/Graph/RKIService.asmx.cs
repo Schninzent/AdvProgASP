@@ -1,6 +1,7 @@
 ﻿using MySql.Data.MySqlClient;
 using System;
 using System.Collections;
+using System.Configuration;
 using System.Data;
 using System.Web.Services;
 
@@ -16,17 +17,20 @@ namespace Graph
     [System.Web.Script.Services.ScriptService]
     public class GraphService : System.Web.Services.WebService
     {
-        private protected MySqlConnection con = new MySqlConnection("Database=dashboard;Data Source=localhost;User Id=root");
+        
+
+        
 
         [WebMethod]
         public ArrayList getRkiData(string countryOne, string countryTwo, string option)
         {
             
-            ArrayList iData = new ArrayList();
+
+        ArrayList iData = new ArrayList();
             ArrayList labels = new ArrayList();
 
             //get labels
-            string query1 = "select concat(day ,'.' , month ) as date from rki_data where bundesland='Hessen' Order by month, day,year";
+            string query1 = "select concat(day ,'.' , month ) as date from AdvancedProgramming.RKI_Data where bundesland='Hessen' Order by month, day,year";
             DataTable dtLabels = GetData(query1);
             foreach (DataRow drow in dtLabels.Rows)
             {
@@ -35,7 +39,7 @@ namespace Graph
             iData.Add(labels);
 
             //get first data set
-            string queryDataSet1 = String.Format("select {0} as 'quantity' from rki_data where bundesland='{1}' Order by month, day,year", option,countryOne);
+            string queryDataSet1 = String.Format("select {0} as 'quantity' from AdvancedProgramming.RKI_Data where bundesland='{1}' Order by month, day,year", option,countryOne);
 
             DataTable dtDataItemsSets1 = GetData(queryDataSet1);
             ArrayList lstdataItem1 = new ArrayList();
@@ -48,7 +52,7 @@ namespace Graph
             iData.Add(lstdataItem1);
 
             //get second data set
-            string queryDataSet2 = String.Format("select {0} as 'quantity' from rki_data where bundesland='{1}' Order by month, day,year", option, countryTwo);
+            string queryDataSet2 = String.Format("select {0} as 'quantity' from AdvancedProgramming.RKI_Data where bundesland='{1}' Order by month, day,year", option, countryTwo);
 
             DataTable dtDataItemsSets2 = GetData(queryDataSet2);
             ArrayList lstdataItem2 = new ArrayList();
@@ -66,6 +70,9 @@ namespace Graph
         //method to fill a dataset according to a query string
         public DataTable GetData(string strQuery)
         {
+            string conn = ConfigurationManager.ConnectionStrings["AdvancedProgrammingConnectionString"].ConnectionString;
+            MySqlConnection con = new MySqlConnection(conn);
+
             MySqlDataAdapter adapter = new MySqlDataAdapter(strQuery, con);
             DataSet dataSet = new DataSet();
             adapter.Fill(dataSet);

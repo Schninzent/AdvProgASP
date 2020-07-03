@@ -4,7 +4,8 @@
     <script src="Scripts/jquery-3.4.1.js"></script>
     <%-- CDN Link for Chart.js --%>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.bundle.min.js"></script>
-    <script src="Scripts/bootstrap.bundle.min.js"></script>
+    <%-- <script src="Scripts/bootstrap.bundle.min.js"></script> --%>
+    <%-- <link href="Content/bootstrap-hero.css" rel="stylesheet" /> --%>
     <style>
        
        .row {
@@ -41,9 +42,9 @@
 
         <div class="row cntryOptions">
             <div class="col cntryOneOptions">
-                <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+                <asp:DropDownList ID="ddl_one" runat="server" DataSourceID="GoogleSource" DataTextField="countries" DataValueField="countries">
                 </asp:DropDownList>
-                
+
                 <div id="slidecontainer" >
                     <p>Custom Correction Country 1:</p>
                     <input type="range" min="-4" max="4" value="0" step="1" id="correctCountry1">
@@ -54,7 +55,7 @@
             </div>
             
             <div class="col cntryTwoOptions">
-                <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="SqlDataSource1" DataTextField="country" DataValueField="country">
+                <asp:DropDownList ID="ddl_two" runat="server" DataSourceID="GoogleSource" DataTextField="countries" DataValueField="countries">
                 </asp:DropDownList>
                 
                 
@@ -103,22 +104,21 @@
         </div>
         
         <div class="row rkiData">
-            <div class="col ">
+            <div class="col-lg-3 ">
             </div>
-            <div class="col ">
+            <div class="col-lg-6">
                 <canvas id="rkiChart"></canvas>
             </div>
-            <div class="col ">
+            <div class="col-lg-3">
             </div>
         </div>
 
     </div>
 
     <%-- The SQL Data Source ConnectionStrings for the Dropdownlists --%>
-    <asp:SqlDataSource ID="SqlDataSource1" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="SELECT distinct country FROM hopkins_data
+    <asp:SqlDataSource ID="rkiData" runat="server" ConnectionString="<%$ ConnectionStrings:AdvancedProgrammingConnectionString %>" ProviderName="<%$ ConnectionStrings:AdvancedProgrammingConnectionString.ProviderName %>" SelectCommand="Select distinct bundesland from RKI_Data"></asp:SqlDataSource>
+    <asp:SqlDataSource ID="GoogleSource" runat="server" ConnectionString="<%$ ConnectionStrings:AdvancedProgrammingConnectionString %>" ProviderName="<%$ ConnectionStrings:AdvancedProgrammingConnectionString.ProviderName %>" SelectCommand="SELECT  * from distinctCountries
 "></asp:SqlDataSource>
-    <asp:SqlDataSource ID="rkiData" runat="server" ConnectionString="<%$ ConnectionStrings:dashboardConnectionString %>" ProviderName="<%$ ConnectionStrings:dashboardConnectionString.ProviderName %>" SelectCommand="Select distinct bundesland from rki_data"></asp:SqlDataSource>
-
 
     <%-- script to draw the first two Graphs with WebService --%>
     <script src="Scripts/DashboardScripts/TwoCharts.js"></script>
